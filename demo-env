@@ -1,0 +1,8 @@
+port = 'server running PORT'
+
+// data base configuration
+host= ""
+user= ""
+db_port= 
+password= ""
+database= ""
