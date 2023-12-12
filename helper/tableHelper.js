@@ -10,7 +10,6 @@ const tableHelper = {
       return result.rows[0].table_exists;
     } catch (error) {
       console.log(error);
-      return false;
     }
   },
 };

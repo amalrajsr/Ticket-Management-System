@@ -8,10 +8,10 @@ const ticketHelper = {
         id SERIAL PRIMARY KEY,
         title VARCHAR(255) NOT NULL,
         description TEXT NOT NULL,
-        status VARCHAR(255) NOT NULL CHECK (status IN ('pending', 'active', 'success', 'reject')),
+        status VARCHAR(255) NOT NULL CHECK (status IN ('pending', 'active', 'complete', 'reject')),
         assignee VARCHAR(255) NOT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        comments JSONB[]
+        comments TEXT[]
       );
     `);
 
@@ -34,12 +34,55 @@ const ticketHelper = {
   async fetchTickets() {
     try {
       const result = await pool.query("SELECT * FROM tickets");
-      return result.rows
+      return result.rows;
     } catch (err) {
       throw new Error(err);
     }
   },
-  
+  async fetchTicketById(ticketId) {
+    try {
+      const result = await pool.query("SELECT * FROM tickets WHERE id = $1", [
+        ticketId,
+      ]);
+      return result.rows;
+    } catch (err) {
+      throw new Error(err);
+    }
+  },
+  async updateTicketAssignee(newAssignee, ticketId) {
+    try {
+      const result = await pool.query(
+        "UPDATE tickets SET assignee = $1 WHERE id = $2 RETURNING *",
+        [newAssignee, ticketId]
+      );
+      return result;
+    } catch (err) {
+      throw new Error(err);
+    }
+  },
+  async updateTicketStatus(newStatus, ticketId) {
+    try {
+      const result = await pool.query(
+        "UPDATE tickets SET status = $1 WHERE id = $2 RETURNING *",
+        [newStatus, ticketId]
+      );
+      return result;
+    } catch (err) {
+      throw new Error(err);
+    }
+  },
+  async addComment(newComment, ticketId) {
+    try {
+      const result = await pool.query(
+        "UPDATE tickets SET comments = array_prepend($1, comments) WHERE id = $2 RETURNING *",
+        [newComment, ticketId]
+      );
+
+      return result;
+    } catch (err) {
+      throw new Error(err);
+    }
+  },
 };
 
 module.exports = ticketHelper;
