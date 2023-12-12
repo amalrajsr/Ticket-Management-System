@@ -42,14 +42,10 @@ async function createTrigger() {
      FOR EACH ROW
      EXECUTE FUNCTION capture_ticket_changes();
    `);
-  } catch (err) {
-  // console.log(err);
-  }
+  } catch (err) {}
 }
 
-const query = async (text, params) => {
-  return await pool.query(text, params);
-};
+const query = async (text, params) => { await pool.query(text, params)};
 triggers();
 createTrigger();
 module.exports = { connectToDatabase, query };

@@ -6,8 +6,6 @@ const commentHelper = require("../helper/commentHelper");
 const AppError = require("../utils/error");
 exports.createTickets = asyncHanlder(async (req, res) => {
   const { title, description, status, assignee } = req.body;
-  if (!title || !description || !status || !assignee)
-    throw new AppError(400, "Invalid request");
 
   const tableExists = await tableHelper.checkTableExists("tickets");
   if (!tableExists) {
@@ -62,7 +60,7 @@ exports.updateTicketStatus = asyncHanlder(async (req, res) => {
   const { status } = req.body;
   if (!id || !status) throw new AppError(400, "Invalid request");
   const result = await ticketHelper.updateTicketStatus(status, id);
-  if (!result.rowCount) throw new AppError(400, "Invalid id");
+  if (!result) throw new AppError(400, "Invalid id");
   res.json({ success: true, result: result.rows[0] });
 });
 exports.addComment = asyncHanlder(async (req, res) => {

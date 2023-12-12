@@ -66,6 +66,7 @@ const ticketHelper = {
         "UPDATE tickets SET status = $1 WHERE id = $2 RETURNING *",
         [newStatus, ticketId]
       );
+      
       return result;
     } catch (err) {
       throw new Error(err);
