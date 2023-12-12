@@ -6,10 +6,10 @@ const ticketHelper = {
       await pool.query(`
       CREATE TABLE IF NOT EXISTS tickets (
         id SERIAL PRIMARY KEY,
-        title VARCHAR(255) NOT NULL,
+        title VARCHAR(100) NOT NULL,
         description TEXT NOT NULL,
-        status VARCHAR(255) NOT NULL CHECK (status IN ('pending', 'active', 'complete', 'reject')),
-        assignee VARCHAR(255) NOT NULL,
+        status VARCHAR(50) NOT NULL CHECK (status IN ('pending', 'active', 'complete', 'reject')),
+        assignee VARCHAR(100) NOT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         comments TEXT[]
       );
@@ -22,11 +22,11 @@ const ticketHelper = {
   },
   async createTicket(title, description, status, assignee) {
     try {
-      const res = await pool.query(
+      const result = await pool.query(
         "INSERT INTO tickets(title, description,status,assignee) VALUES($1, $2,$3,$4)",
         [title, description, status, assignee]
       );
-      return !!res.rowCount;
+      return !!result.rowCount;
     } catch (err) {
       throw new Error(err);
     }
@@ -44,7 +44,7 @@ const ticketHelper = {
       const result = await pool.query("SELECT * FROM tickets WHERE id = $1", [
         ticketId,
       ]);
-      return result.rows;
+      return result.rows[0];
     } catch (err) {
       throw new Error(err);
     }
