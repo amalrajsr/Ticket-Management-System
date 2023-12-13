@@ -11,7 +11,6 @@ const ticketHelper = {
         status VARCHAR(50) NOT NULL CHECK (status IN ('pending', 'active', 'complete', 'reject')),
         assignee VARCHAR(100) NOT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        comments TEXT[]
       );
     `);
 
