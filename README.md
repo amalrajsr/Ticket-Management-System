@@ -33,9 +33,10 @@ Follow these instructions to get the project up and running on your local machin
 3. Install dependencies:
 
    npm install
-4
 
-  add .env file
+4. 
+
+    add .env file
 
 ### Usage
 
