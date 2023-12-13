@@ -24,22 +24,17 @@ Follow these instructions to get the project up and running on your local machin
 
 1. Clone the repository:
 
-
    git clone https://github.com/amalrajsr/Ticket-Management-System.git
    
 2. Navigate to Ticket-Management-System directory:
 
-
    cd Ticket-Management-System
 
 3. Install dependencies:
-
-
+ 
    npm install
 
-4. 
-
-    add .env file
+4. add .env file
 
 ### Usage
 
