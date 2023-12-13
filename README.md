@@ -18,6 +18,7 @@ Follow these instructions to get the project up and running on your local machin
 ### Prerequisites
 
 - [Node.js](https://nodejs.org/) installed on your machine.
+- [PostgreSQL](https://www.postgresql.org/download/) installed on your machine
 
 ### Installation
 
