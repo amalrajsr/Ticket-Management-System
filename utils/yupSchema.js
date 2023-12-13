@@ -34,7 +34,6 @@ exports.statusSchema = Yup.object().shape({
     .min(3, "Assignee must contain atleast 3 character").matches(/^[a-zA-Z0-9 ]+$/,'only alphanumeric characters are allowed'),
 });
 exports.commentSchema = Yup.object().shape({
-  id: Yup.number().required("ID is required"),
   comment: Yup.string()
     .required("comment is required")
     .trim()

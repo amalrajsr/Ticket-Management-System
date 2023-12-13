@@ -45,7 +45,7 @@ async function createTrigger() {
   } catch (err) {}
 }
 
-const query = async (text, params) => { await pool.query(text, params)};
+const query = async (text, params) =>  await pool.query(text, params);
 triggers();
 createTrigger();
 module.exports = { connectToDatabase, query };

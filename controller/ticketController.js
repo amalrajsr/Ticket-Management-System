@@ -40,6 +40,7 @@ exports.fetchTicketById = asyncHanlder(async (req, res) => {
   const { id } = req.params;
   if (!id) throw new AppError(400, "Invalid request");
   const ticket = await ticketHelper.fetchTicketById(id);
+  
   const history = await historyHelper.fechHistory(id);
   const comments = await commentHelper.fetchCommentsById(id);
   const result = { details: { ...ticket, comments }, history };
@@ -60,7 +61,7 @@ exports.updateTicketStatus = asyncHanlder(async (req, res) => {
   const { status } = req.body;
   if (!id || !status) throw new AppError(400, "Invalid request");
   const result = await ticketHelper.updateTicketStatus(status, id);
-  if (!result) throw new AppError(400, "Invalid id");
+  if (!result.rowCount) throw new AppError(400, "Invalid id");
   res.json({ success: true, result: result.rows[0] });
 });
 exports.addComment = asyncHanlder(async (req, res) => {

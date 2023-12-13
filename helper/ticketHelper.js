@@ -44,6 +44,7 @@ const ticketHelper = {
       const result = await pool.query("SELECT * FROM tickets WHERE id = $1", [
         ticketId,
       ]);
+      // if(!result) throw new Error('invalid Id')
       return result.rows[0];
     } catch (err) {
       throw new Error(err);
@@ -66,7 +67,6 @@ const ticketHelper = {
         "UPDATE tickets SET status = $1 WHERE id = $2 RETURNING *",
         [newStatus, ticketId]
       );
-      
       return result;
     } catch (err) {
       throw new Error(err);
